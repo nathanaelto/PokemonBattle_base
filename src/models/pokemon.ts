@@ -24,7 +24,11 @@ export class Pokemon {
     useAttackIdTo(id: number, other: Pokemon){
         const dmg: number | undefined = this.attacks?.attacks[id].damage;
         if (dmg !== undefined){
-            other.hp -= dmg;
+            if (other.hp <= dmg){
+                other.hp = 0;
+            } else {
+                other.hp -= dmg;
+            }
         }
     }
 

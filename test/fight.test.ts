@@ -1,6 +1,7 @@
 import {Pokemon} from "../src/models/pokemon";
 import {whoAttackFirst} from "../src/controllers/fight";
 import {Attacks} from "../src/models/attacks";
+import {Fight} from "../src/models/fight";
 
 describe('Who attack first', () => {
     it('should return Pika when he start a fight whith carapuce ', () => {
@@ -27,7 +28,7 @@ describe('Who attack first', () => {
             ])
         );
         const result = whoAttackFirst(pika, cara);
-        expect(result.name).toBe("Pika");
+        expect(result.name).toBe("Pikachu");
     });
 })
 
@@ -84,4 +85,39 @@ describe('Picachu attack Carapuce', () => {
         expect(cara.hp).toBe(135);
     });
 
-})
+});
+
+describe('Fight between Pikachu & Carapuce', () => {
+    let pika = new Pokemon(
+        "Pikachu",
+        90,
+        100,
+        new Attacks([
+            {name: "Queu de fer", damage: 10},
+            {name: "Eclair", damage: 30},
+            {name: "Vive attaque", damage: 25},
+            {name: "Coup d\'Jus", damage: 15}
+        ])
+    );
+    let cara = new Pokemon(
+        "Carapuce",
+        75,
+        50,
+        new Attacks([
+            {name: "Canon a eau", damage: 35},
+            {name: "Coup de boul", damage: 5},
+            {name: "Vibraqua", damage: 20},
+            {name: "Hydroqueue", damage: 10}
+        ])
+    );
+
+    it('winner should be Pikachu', async function () {
+        const fight = new Fight({
+            p1: pika,
+            p2: cara
+        });
+        const winner = await fight.fight();
+        await expect(winner.name).resolves.toBe("Pikachu");
+    })
+
+});

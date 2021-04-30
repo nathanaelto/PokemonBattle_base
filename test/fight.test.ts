@@ -111,13 +111,15 @@ describe('Fight between Pikachu & Carapuce', () => {
         ])
     );
 
+    jest.setTimeout(10000);
+
     it('winner should be Pikachu', async function () {
         const fight = new Fight({
             p1: pika,
             p2: cara
         });
         const winner = await fight.fight();
-        await expect(winner.name).resolves.toBe("Pikachu");
+        expect(winner.name).toBe("Pikachu");
     })
 
 });

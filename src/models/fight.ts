@@ -52,7 +52,7 @@ export class Fight{
         return new Promise<void>(resolve => {
             setTimeout(() => {
                 resolve(attacker.useAttackIdTo(attack, target))
-            }, 3000);
+            }, 1000);
         })
     }
 
